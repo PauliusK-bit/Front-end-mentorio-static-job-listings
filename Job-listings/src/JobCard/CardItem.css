@@ -1,0 +1,30 @@
+.information-wrapper {
+  display: flex;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+span {
+  margin-left: 25px;
+}
+
+p {
+  margin: 0;
+}
+
+.location-description {
+  display: flex;
+}
+
+.description-wrapper {
+  margin-left: 40px;
+  margin-top: 15px;
+}
+
+.smallcards-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 210px;
+}

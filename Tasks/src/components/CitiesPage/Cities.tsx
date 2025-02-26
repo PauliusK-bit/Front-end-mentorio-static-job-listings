@@ -1,8 +1,10 @@
 import { useState } from "react";
 import CityItem from "./CityItem";
+import CityContextProvider, { City } from "./CitiesContextProvider";
+import { ReactFormState } from "react-dom/client";
 
 const CityList = () => {
-  const [cities, setCities] = useState([
+  const [cities, setCities] = useState<City[]>([
     {
       name: "Vilnius",
       population: 500000,
@@ -40,16 +42,19 @@ const CityList = () => {
     },
   ]);
 
-  const [newCity, setNewCity] = useState({
+  const [newCity, setNewCity] = useState<City>({
     name: "",
-    population: "",
-    continent: "",
-    country: "",
-    touristAttractions: "",
+    population: 0,
+    location: {
+      continent: "",
+      country: "",
+    },
+
+    touristAttractions: [],
     isCapital: false,
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.FormEvent) => {
     const { name, value } = e.target;
     setNewCity((prev) => ({
       ...prev,
@@ -57,7 +62,7 @@ const CityList = () => {
     }));
   };
 
-  const handleAddCity = (e) => {
+  const handleAddCity = (e: React.FormEvent) => {
     e.preventDefault();
     setCities((prevCities) => [
       ...prevCities,
@@ -74,20 +79,25 @@ const CityList = () => {
     ]);
     setNewCity({
       name: "",
-      population: "",
-      continent: "",
-      country: "",
-      touristAttractions: "",
+      population: 0,
+      location: {
+        continent: "",
+        country: "",
+      },
+
+      touristAttractions: [],
       isCapital: false,
     });
   };
 
   return (
     <>
-      <h2>Miestu sarasas</h2>
-      {cities.map((city, index) => (
-        <CityItem key={index} data={city} />
-      ))}
+      <CityContextProvider>
+        <h2>Miestu sarasas</h2>
+        {cities.map((city, index) => (
+          <CityItem key={index} data={city} />
+        ))}
+      </CityContextProvider>
 
       <h3>Pridėti naują miestą</h3>
       <form onSubmit={handleAddCity}>

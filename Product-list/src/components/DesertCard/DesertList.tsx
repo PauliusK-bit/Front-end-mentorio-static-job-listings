@@ -1,6 +1,18 @@
 import DesertCard from "./DesertCard";
 import data from "../data.json";
-function DesertList() {
+import React from "react";
+
+type Desert = {
+  id: number;
+  name: string;
+  description: string;
+};
+
+type DesertListProps = {
+  data: Desert[];
+};
+
+const DesertList: React.FC<DesertListProps> = ({ data }) => {
   return (
     <>
       {data.map((desert, index) => (
@@ -8,6 +20,6 @@ function DesertList() {
       ))}
     </>
   );
-}
+};
 
 export default DesertList;
